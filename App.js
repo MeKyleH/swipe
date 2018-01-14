@@ -1,5 +1,5 @@
 import React from 'react';
-import { PanResponder, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { Button, Card } from 'react-native-elements';
 import Deck from './src/Deck';
 
@@ -16,20 +16,6 @@ const DATA = [
 ];
 
 export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-
-    const panResponder = PanResponder.create({
-      onStartShouldSetPanResponder: () => true,
-      onPanResponderMove: (event, gesture) => {
-
-      },
-      onPanResponderRelease: () => {}
-    });
-
-    this.state = { panResponder };
-  }
-
   renderCard(item) {
     return (
       <Card
@@ -51,7 +37,7 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <View {...this.state.panResponder.panHandlers}>
+      <View>
         <Deck
           data={DATA}
           renderCard={this.renderCard}
