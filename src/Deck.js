@@ -36,38 +36,41 @@ class Deck extends Component {
       }
     });
 
-    this.state = { panResponder, position, index: 0 };
+    this.position = position;
+    this.state = { panResponder, index: 0 };
   }
 
   getCardStyle() {
     const { position } = this.state;
-    const rotate = position.x.interpolate({
+    const rotate = this.position.x.interpolate({
       inputRange: [-SCREEN_WIDTH, 0, SCREEN_WIDTH],
       outputRange: ['-30deg', '0deg', '30deg']
     });
 
     return {
-      ...position.getLayout(),
+      ...this.position.getLayout(),
       transform: [{ rotate }]
     };
   }
 
   forceSwipe(direction) {
-    Animated.timing(this.state.position, {
+    Animated.timing(this.position, {
       toValue: { x: 2 * SCREEN_WIDTH * direction, y: 0 },
       duration: SWIPE_OUT_DURATION
-    }).start(() => this.onSwipeComplete(direction));
+    }).start(() => this.completeSwipe(direction));
   }
 
-  onSwipeComplete(direction) {
+  completeSwipe(direction) {
     const { onSwipeLeft, onSwipeRight, data } = this.props;
     const item = data[this.state.index];
 
     direction === 0 ? onSwipeRight(item) : onSwipeLeft(item);
+    this.position.setValue({ x: 0, y: 0 });
+    this.setState({ index: this.state.index + 1 });
   }
 
   resetPosition() {
-    Animated.spring(this.state.position, {
+    Animated.spring(this.position, {
       toValue: { x: 0, y: 0 }
     }).start();
   }
