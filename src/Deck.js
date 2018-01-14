@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import {
   Animated,
   Dimensions,
+  LayoutAnimation,
   PanResponder,
+  UIManager,
   View
 } from 'react-native';
 
@@ -51,6 +53,12 @@ class Deck extends Component {
       ...this.position.getLayout(),
       transform: [{ rotate }]
     };
+  }
+
+  componentWillUpdate() {
+    // specifically for Android
+    UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
+    LayoutAnimation.spring();
   }
 
   forceSwipe(direction) {
