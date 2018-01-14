@@ -20,7 +20,11 @@ export default class App extends React.Component {
     super(props);
 
     const panResponder = PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onPanResponderMove: (event, gesture) => {
 
+      },
+      onPanResponderRelease: () => {}
     });
 
     this.state = { panResponder };
@@ -47,7 +51,7 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <View {...this.state.panResponder.panHandlers}>
         <Deck
           data={DATA}
           renderCard={this.renderCard}
@@ -56,10 +60,3 @@ export default class App extends React.Component {
     );
   }
 }
-
-const styles = {
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-};
