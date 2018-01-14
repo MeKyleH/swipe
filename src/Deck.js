@@ -42,8 +42,20 @@ class Deck extends Component {
     this.state = { panResponder, index: 0 };
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.data !== this.props.data) {
+      this.setState({ index: 0 });
+    }
+  }
+
+  componentWillUpdate() {
+    // specifically for Android
+    UIManager.setLayoutAnimationEnabledExperimental &&
+      UIManager.setLayoutAnimationEnabledExperimental(true);
+    LayoutAnimation.spring();
+  }
+
   getCardStyle() {
-    const { position } = this.state;
     const rotate = this.position.x.interpolate({
       inputRange: [-SCREEN_WIDTH, 0, SCREEN_WIDTH],
       outputRange: ['-30deg', '0deg', '30deg']
@@ -53,12 +65,6 @@ class Deck extends Component {
       ...this.position.getLayout(),
       transform: [{ rotate }]
     };
-  }
-
-  componentWillUpdate() {
-    // specifically for Android
-    UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
-    LayoutAnimation.spring();
   }
 
   forceSwipe(direction) {

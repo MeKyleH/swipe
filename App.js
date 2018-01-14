@@ -1,5 +1,6 @@
+import Expo from 'expo';
 import React from 'react';
-import { Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { Button, Card } from 'react-native-elements';
 import Deck from './src/Deck';
 
@@ -51,7 +52,7 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         <Deck
           data={DATA}
           renderCard={this.renderCard}
@@ -61,3 +62,13 @@ export default class App extends React.Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    marginTop: 20,
+    flex: 1,
+    backgroundColor: '#fff'
+  }
+});
+
+Expo.registerRootComponent(App);
