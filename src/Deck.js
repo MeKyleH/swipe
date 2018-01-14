@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Animated, Text, View } from 'react-native';
+import { View } from 'react-native';
 
 class Deck extends Component {
   renderCards() {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { PanResponder, Text, View } from 'react-native';
 import { Button, Card } from 'react-native-elements';
 import Deck from './src/Deck';
 
@@ -16,6 +16,16 @@ const DATA = [
 ];
 
 export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    const panResponder = PanResponder.create({
+
+    });
+
+    this.state = { panResponder };
+  }
+
   renderCard(item) {
     return (
       <Card
@@ -47,9 +57,9 @@ export default class App extends React.Component {
   }
 }
 
-const styles = StyleSheet.create({
+const styles = {
   container: {
     flex: 1,
     backgroundColor: '#fff',
   },
-});
+};
